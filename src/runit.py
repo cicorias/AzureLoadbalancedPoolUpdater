@@ -20,9 +20,16 @@ from azure.mgmt.network import (
 
 import requests, json
 
-global compute_client, network_client, resource_client
-global subscription_id, client_id, client_secret, endpoint
 
+
+#global compute_client, network_client, resource_client
+# global config, subscription_id, client_id, client_secret, endpoint
+
+#config
+#    = subscription_id = client_id = client_secret = endpoint = ''
+
+
+#global config, subscription_id, client_id, client_secret, endpoint
 
 def get_token_from_client_credentials(endpoint, client_id, client_secret):
     payload = {
@@ -42,12 +49,31 @@ def list_resource_groups():
 	
 def load_config():
     with open('settings.private.json') as config_file:
+        global config, subscription_id, client_id, client_secret, endpoint
         config = json.load(config_file)
-        subscription_id = config.subscription_id
-        client_id = config.client_id
-        client_secret = config.client_secret
-        endpoint = config.endpoint
+        subscription_id = config['subscription_id']
+        client_id = config['client_id']
+        client_secret = config['client_secret']
+        endpoint = config['endpoint']
 
+
+def get_load_balancer(resource_group_name, load_balancer_name):
+    # Get all LBs
+    load_balancer_list = network_client.load_balancers.list(resource_group_name=resource_group_name)
+    # for lb in lbs
+    for load_balancer in load_balancer_list.load_balancers:
+        if load_balancer.name == load_balancer_name:
+            return load_balancer
+
+
+def get_backend_pool(load_balancer, pool_name):
+    for pool in load_balancer.backend_address_pools:
+        for ipconfig in pool.backend_ip_configurations:
+            print ipconfig.id
+
+
+# Startup
+load_config()
 
 # OAuth token needed
 auth_token = get_token_from_client_credentials(endpoint, client_id, client_secret)
@@ -62,21 +88,10 @@ resource_client = ResourceManagementClient(creds)
 
 list_resource_groups()
 
-def get_load_balancer(resource_group_name, load_balancer_name):
-    # Get all LBs
-    load_balancer_list = network_client.load_balancers.list(resource_group_name=resource_group_name)
-    # for lb in lbs
-    for load_balancer in load_balancer_list.load_balancers:
-        if load_balancer.name == load_balancer_name:
-            return load_balancer
-
-
-def get_backend_pool(load_balancer, pool_name):
-    for pool in load_balancer.backend_address_pools
-
 resource_group = 'mshackilbfloat1'
-
 load_balancer = get_load_balancer(resource_group, 'webload')
+backend_pool = get_backend_pool(load_balancer, 'BackendPool1')
+
 
 print 'done'
 
