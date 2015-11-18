@@ -1,0 +1,277 @@
+{
+  "name": "webload",
+  "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload",
+  "etag": "W/\"386fbb20-ab79-420a-8fac-bd8d85276ae0\"",
+  "type": "Microsoft.Network/loadBalancers",
+  "location": "westus",
+  "tags": {
+    "displayName": "LoadBalancer"
+  },
+  "properties": {
+    "provisioningState": "Succeeded",
+    "resourceGuid": "54e5cf74-a1d2-42ea-9b6a-92f34ff7a138",
+    "frontendIPConfigurations": [
+      {
+        "name": "LoadBalancerFrontend",
+        "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/frontendIPConfigurations/LoadBalancerFrontend",
+        "etag": "W/\"386fbb20-ab79-420a-8fac-bd8d85276ae0\"",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "privateIPAddress": "10.0.2.4",
+          "privateIPAllocationMethod": "Dynamic",
+          "subnet": {
+            "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/virtualNetworks/ilbfloat/subnets/backendSubnet"
+          },
+          "loadBalancingRules": [
+            {
+              "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/loadBalancingRules/httptraffic"
+            }
+          ],
+          "inboundNatRules": [
+            {
+              "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/inboundNatRules/rdp"
+            }
+          ]
+        }
+      },
+      {
+        "properties": {
+          "privateIPAddress": "(string)",
+          "privateIPAllocationMethod": "(string)",
+          "subnet": {
+            "id": "(string)"
+          },
+          "publicIPAddress": {
+            "id": "(string)"
+          },
+          "inboundNatRules": [
+            {
+              "id": "(string)"
+            }
+          ],
+          "inboundNatPools": [
+            {
+              "id": "(string)"
+            }
+          ],
+          "outboundNatRules": [
+            {
+              "id": "(string)"
+            }
+          ],
+          "loadBalancingRules": [
+            {
+              "id": "(string)"
+            }
+          ],
+          "provisioningState": "(string)"
+        },
+        "name": "(string)",
+        "etag": "(string)",
+        "id": "(string)"
+      }
+    ],
+    "backendAddressPools": [
+      {
+        "name": "BackendPool1",
+        "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/backendAddressPools/BackendPool1",
+        "etag": "W/\"386fbb20-ab79-420a-8fac-bd8d85276ae0\"",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "backendIPConfigurations": [
+            {
+              "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/networkInterfaces/ilbfloat0/ipConfigurations/ipconfig0"
+            },
+            {
+              "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/networkInterfaces/ilbfloat1/ipConfigurations/ipconfig1"
+            }
+          ],
+          "loadBalancingRules": [
+            {
+              "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/loadBalancingRules/httptraffic"
+            }
+          ]
+        }
+      },
+      {
+        "properties": {
+          "backendIPConfigurations": [
+            {
+              "id": "(string)"
+            }
+          ],
+          "loadBalancingRules": [
+            {
+              "id": "(string)"
+            }
+          ],
+          "outboundNatRule": {
+            "id": "(string)"
+          },
+          "provisioningState": "(string)"
+        },
+        "name": "(string)",
+        "etag": "(string)",
+        "id": "(string)"
+      }
+    ],
+    "loadBalancingRules": [
+      {
+        "name": "httptraffic",
+        "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/loadBalancingRules/httptraffic",
+        "etag": "W/\"386fbb20-ab79-420a-8fac-bd8d85276ae0\"",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "frontendIPConfiguration": {
+            "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/frontendIPConfigurations/LoadBalancerFrontend"
+          },
+          "frontendPort": 80,
+          "backendPort": 80,
+          "enableFloatingIP": true,
+          "idleTimeoutInMinutes": 4,
+          "protocol": "Tcp",
+          "loadDistribution": "SourceIP",
+          "backendAddressPool": {
+            "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/backendAddressPools/BackendPool1"
+          },
+          "probe": {
+            "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/probes/lbprobe"
+          }
+        }
+      },
+      {
+        "properties": {
+          "frontendIPConfiguration": {
+            "id": "(string)"
+          },
+          "backendAddressPool": {
+            "id": "(string)"
+          },
+          "probe": {
+            "id": "(string)"
+          },
+          "protocol": "(string)",
+          "loadDistribution": "(string)",
+          "frontendPort": "(int32)",
+          "backendPort": "(int32)",
+          "idleTimeoutInMinutes": "(int32)",
+          "enableFloatingIP": "(boolean)",
+          "provisioningState": "(string)"
+        },
+        "name": "(string)",
+        "etag": "(string)",
+        "id": "(string)"
+      }
+    ],
+    "probes": [
+      {
+        "name": "lbprobe",
+        "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/probes/lbprobe",
+        "etag": "W/\"386fbb20-ab79-420a-8fac-bd8d85276ae0\"",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "protocol": "Tcp",
+          "port": 80,
+          "intervalInSeconds": 15,
+          "numberOfProbes": 2,
+          "loadBalancingRules": [
+            {
+              "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/loadBalancingRules/httptraffic"
+            }
+          ]
+        }
+      },
+      {
+        "properties": {
+          "loadBalancingRules": [
+            {
+              "id": "(string)"
+            }
+          ],
+          "protocol": "(string)",
+          "port": "(int32)",
+          "intervalInSeconds": "(int32)",
+          "numberOfProbes": "(int32)",
+          "requestPath": "(string)",
+          "provisioningState": "(string)"
+        },
+        "name": "(string)",
+        "etag": "(string)",
+        "id": "(string)"
+      }
+    ],
+    "inboundNatRules": [
+      {
+        "name": "rdp",
+        "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/inboundNatRules/rdp",
+        "etag": "W/\"386fbb20-ab79-420a-8fac-bd8d85276ae0\"",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "frontendIPConfiguration": {
+            "id": "/subscriptions/<subscriptionId>/resourceGroups/mshackilbfloat1/providers/Microsoft.Network/loadBalancers/webload/frontendIPConfigurations/LoadBalancerFrontend"
+          },
+          "frontendPort": 3389,
+          "backendPort": 3389,
+          "enableFloatingIP": true,
+          "idleTimeoutInMinutes": 4,
+          "protocol": "Tcp"
+        }
+      },
+      {
+        "properties": {
+          "frontendIPConfiguration": {
+            "id": "(string)"
+          },
+          "backendIPConfiguration": {
+            "id": "(string)"
+          },
+          "protocol": "(string)",
+          "frontendPort": "(int32)",
+          "backendPort": "(int32)",
+          "idleTimeoutInMinutes": "(int32)",
+          "enableFloatingIP": "(boolean)",
+          "provisioningState": "(string)"
+        },
+        "name": "(string)",
+        "etag": "(string)",
+        "id": "(string)"
+      }
+    ],
+    "outboundNatRules": [
+      {
+        "properties": {
+          "allocatedOutboundPorts": "(int32)",
+          "frontendIPConfigurations": [
+            {
+              "id": "(string)"
+            }
+          ],
+          "backendAddressPool": {
+            "id": "(string)"
+          },
+          "provisioningState": "(string)"
+        },
+        "name": "(string)",
+        "etag": "(string)",
+        "id": "(string)"
+      }
+    ],
+    "inboundNatPools": [
+      {
+        "properties": {
+          "frontendIPConfiguration": {
+            "id": "(string)"
+          },
+          "protocol": "(string)",
+          "frontendPortRangeStart": "(int32)",
+          "frontendPortRangeEnd": "(int32)",
+          "backendPort": "(int32)",
+          "provisioningState": "(string)"
+        },
+        "name": "(string)",
+        "etag": "(string)",
+        "id": "(string)"
+      }
+    ]
+  }
+}

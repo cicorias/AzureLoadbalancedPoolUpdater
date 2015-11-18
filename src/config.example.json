@@ -1,0 +1,6 @@
+{
+  "subscription_id" : "<subscriptionid>",
+  "client_id" : "< from Azure AD - client ID of an App created >",
+  "client_secret" : "< client secret - good for 1 year, or 2 years >",
+  "endpoint" : "https://login.microsoftonline.com/<tenantid>/oauth2/token"
+}

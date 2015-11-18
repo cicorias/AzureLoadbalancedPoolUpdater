@@ -15,21 +15,18 @@ from azure.mgmt.resource import (
 )
 
 from azure.mgmt.network import (
-    NetworkResourceProviderClient,
+    NetworkResourceProviderClient
 )
 
-import requests, json
+from azure.mgmt.compute import (
+    ComputeManagementClient
+)
 
+import requests, json, re
 
+# globals
+endpoint =  client_id = client_secret = None
 
-#global compute_client, network_client, resource_client
-# global config, subscription_id, client_id, client_secret, endpoint
-
-#config
-#    = subscription_id = client_id = client_secret = endpoint = ''
-
-
-#global config, subscription_id, client_id, client_secret, endpoint
 
 def get_token_from_client_credentials(endpoint, client_id, client_secret):
     payload = {
@@ -61,15 +58,18 @@ def get_load_balancer(resource_group_name, load_balancer_name):
     # Get all LBs
     load_balancer_list = network_client.load_balancers.list(resource_group_name=resource_group_name)
     # for lb in lbs
-    for load_balancer in load_balancer_list.load_balancers:
-        if load_balancer.name == load_balancer_name:
-            return load_balancer
+    for load_balancer_item in load_balancer_list.load_balancers:
+        if load_balancer_item.name == load_balancer_name:
+            return load_balancer_item
 
 
-def get_backend_pool(load_balancer, pool_name):
-    for pool in load_balancer.backend_address_pools:
-        for ipconfig in pool.backend_ip_configurations:
-            print ipconfig.id
+def get_backend_pool(load_balancer_object, pool_name):
+    for pool in load_balancer_object.backend_address_pools:
+        if pool.name == pool_name:
+            return pool
+
+def get_vm(vmname):
+    print vmname
 
 
 # Startup
@@ -81,8 +81,8 @@ auth_token = get_token_from_client_credentials(endpoint, client_id, client_secre
 # now the Azure management credentials
 creds = SubscriptionCloudCredentials(subscription_id, auth_token)
 
-# now the specfic compute, network resource type clients
-# compute_client = ComputeManagementClient(creds)
+# now the specific compute, network resource type clients
+compute_client = ComputeManagementClient(creds)
 network_client = NetworkResourceProviderClient(creds)
 resource_client = ResourceManagementClient(creds)
 
@@ -93,7 +93,47 @@ load_balancer = get_load_balancer(resource_group, 'webload')
 backend_pool = get_backend_pool(load_balancer, 'BackendPool1')
 
 
+print 'ip config ids'
+for ipconfig in backend_pool.backend_ip_configurations:
+    print ipconfig.id
+
+
+
+
+
+# this shit aint working....
+
+toremove = ur'ipconfig0';
+toaddFloat = ur'ilbfloat1'
+toaddIp = ur'ipconfig1'
+
+for ipconfig in backend_pool.backend_ip_configurations:
+    findReqex = re.compile(toremove)
+    idDecode = ipconfig.id  #.decode('utf-8')
+    if findReqex.match(idDecode) is not None:
+        idStr = ipconfig.id
+        newId = findReqex.sub(toaddFloat, idStr.decode('utf-8'))
+        newId = findReqex.sub(toaddIp, newId)
+        print idStr
+        print newId
+
+
+#
+# for thing in backend_pool
+
 print 'done'
+
+
+# Remaining approach:
+
+# 1. Based upon the "VM" names provided for "master" and "replica"
+# 2. Get the VM, then get it's NIC /networkProfile/networkInterfaces/id  (name)
+#    using that 'name'
+# 3. Then get its /Microsoft.Network/networkInterfaces -> property/ipConfigurations/
+#      Then gat the "id" of that ipconfiguration which
+# 4. Then "remove" for ID for replica, then "add" the master
+
+
 
 
 #    result = resource_client.resource_groups.list(None)
