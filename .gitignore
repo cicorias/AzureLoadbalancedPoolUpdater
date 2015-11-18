@@ -1,0 +1,5 @@
+*.pem
+settings.private.json
+*.private
+**/.idea/*
+**/.vscode/*
