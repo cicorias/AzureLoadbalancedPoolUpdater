@@ -68,6 +68,24 @@ def get_backend_pool(load_balancer_object, pool_name):
         if pool.name == pool_name:
             return pool
 
+# this shit aint working....
+def notworking_stuff():
+    toremove = ur'ipconfig0'
+    toaddFloat = ur'ilbfloat1'
+    toaddIp = ur'ipconfig1'
+
+    for ipconfig in backend_pool.backend_ip_configurations:
+        findReqex = re.compile(toremove)
+        idDecode = ipconfig.id  #.decode('utf-8')
+        if findReqex.match(idDecode) is not None:
+            idStr = ipconfig.id
+            newId = findReqex.sub(toaddFloat, idStr.decode('utf-8'))
+            newId = findReqex.sub(toaddIp, newId)
+            print idStr
+            print newId
+
+
+
 def get_vm(vmname):
     print vmname
 
@@ -101,21 +119,6 @@ for ipconfig in backend_pool.backend_ip_configurations:
 
 
 
-# this shit aint working....
-
-toremove = ur'ipconfig0';
-toaddFloat = ur'ilbfloat1'
-toaddIp = ur'ipconfig1'
-
-for ipconfig in backend_pool.backend_ip_configurations:
-    findReqex = re.compile(toremove)
-    idDecode = ipconfig.id  #.decode('utf-8')
-    if findReqex.match(idDecode) is not None:
-        idStr = ipconfig.id
-        newId = findReqex.sub(toaddFloat, idStr.decode('utf-8'))
-        newId = findReqex.sub(toaddIp, newId)
-        print idStr
-        print newId
 
 
 #
@@ -125,13 +128,13 @@ print 'done'
 
 
 # Remaining approach:
-
-# 1. Based upon the "VM" names provided for "master" and "replica"
+# 0. parameters provided "backend pool name" & "vm" to be master
+# 1. Based upon the "VM" names provided for "master
 # 2. Get the VM, then get it's NIC /networkProfile/networkInterfaces/id  (name)
 #    using that 'name'
 # 3. Then get its /Microsoft.Network/networkInterfaces -> property/ipConfigurations/
 #      Then gat the "id" of that ipconfiguration which
-# 4. Then "remove" for ID for replica, then "add" the master
+# 4. Then "remove" all from the backend pool; then add in the VM/nic as master
 
 
 
