@@ -47,5 +47,4 @@ Not well documented for Non-SQL Server Configurations
 ## Video Walkthrough
 View on Office Mix [Azure Load Balancer Back End Updates via REST](https://mix.office.com/MyMixes/Details/1zm4c3lcw51o)
 
-Or via below on Azure Media Services
-<iframe width="1184" height="715" src="https://scicoria.blob.core.windows.net/asset-3998123a-0d00-80c4-9e47-f1e58fbdf628/Azure%20Load%20Balancer%20Back%20End%20Updates%20via%20REST.2.mp4?sv=2012-02-12&sr=c&si=fcb70cfa-239f-4f78-a250-e432f7dba49e&sig=O8Goihhzxm1rR2HDP8JqIYxF29OWEjK79qg5NUmeeqc%3D&st=2015-11-20T19%3A36%3A42Z&se=2115-10-27T19%3A36%3A42Z" frameborder="0" allowfullscreen></iframe>
+Or on YouTube [Azure Load Balancer Back End Updates via REST](https://youtu.be/ChOhpEpPHL8)
