@@ -3,3 +3,15 @@ settings.private.json
 *.private
 **/.idea/*
 **/.vscode/*
+
+
+*.user
+**/.vs/*
+
+
+**/packages/*
+**/bin/*
+**/obj/*
+
+
+remove.json
