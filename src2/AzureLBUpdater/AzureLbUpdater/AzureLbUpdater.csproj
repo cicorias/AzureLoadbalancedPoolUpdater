@@ -127,9 +127,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="remove.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
     </None>
     <None Include="settings.private.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
