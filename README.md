@@ -3,7 +3,7 @@
 Provides and approach for updating Azure Load Balancer – adding and removing Virtual Machines from the Back End Pool
 
 * Current example written in C#
-* Visual Studio 29015
+* Visual Studio 2015
 * Following direct NuGet package dependencies
 * ADAL & Azure Management Libraries
 
