@@ -7,8 +7,6 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "src", "..\..\src\src.pyproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureLbUpdater", "AzureLbUpdater\AzureLbUpdater.csproj", "{D6F33ED4-4A15-46FC-9CAD-5E66B102E478}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{145F2134-DBF6-40D4-B84B-B7EBCF782BA5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,10 +19,6 @@ Global
 		{D6F33ED4-4A15-46FC-9CAD-5E66B102E478}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6F33ED4-4A15-46FC-9CAD-5E66B102E478}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6F33ED4-4A15-46FC-9CAD-5E66B102E478}.Release|Any CPU.Build.0 = Release|Any CPU
-		{145F2134-DBF6-40D4-B84B-B7EBCF782BA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{145F2134-DBF6-40D4-B84B-B7EBCF782BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{145F2134-DBF6-40D4-B84B-B7EBCF782BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{145F2134-DBF6-40D4-B84B-B7EBCF782BA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
