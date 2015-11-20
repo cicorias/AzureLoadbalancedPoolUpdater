@@ -48,3 +48,10 @@ Not well documented for Non-SQL Server Configurations
 View on Office Mix [Azure Load Balancer Back End Updates via REST](https://mix.office.com/MyMixes/Details/1zm4c3lcw51o)
 
 Or on YouTube [Azure Load Balancer Back End Updates via REST](https://youtu.be/ChOhpEpPHL8)
+
+### Video in iframe..
+<iframe width="1184" height="715" src="http://bit.ly/1MswxXq" frameborder="0" allowfullscreen></iframe>
+
+
+#### Via Mix
+<iframe width="1184" height="715" src="https://mix.office.com/embed/1zm4c3lcw51o" frameborder="0" allowfullscreen></iframe>
