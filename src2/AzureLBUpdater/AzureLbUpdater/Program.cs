@@ -128,6 +128,9 @@ namespace AzureLbUpdater
 
         static void UpdateNic(LoadBalancerRequest parameters, string resourceId, string token)
         {
+
+            var retryMax = 5;
+
             var client = s_netclient.HttpClient;
             client.DefaultRequestHeaders.Authorization = 
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
@@ -141,10 +144,23 @@ namespace AzureLbUpdater
                 Encoding.UTF8,
                 "application/json");
 
-            var response = client.PutAsync(
-                uri,
-                body).Result;
 
+            HttpResponseMessage response = null;
+
+            while (retryMax > 0)
+            {
+                response = client.PutAsync(
+                    uri,
+                    body).Result;
+
+                if (response.IsSuccessStatusCode && ((int)response.StatusCode) != 429)
+                    break;
+                else
+                {
+                    --retryMax;
+                    Console.WriteLine(" Retrying operation... ");
+                }
+            }
 
             dynamic content = JsonConvert.DeserializeObject(
                 response.Content.ReadAsStringAsync()
