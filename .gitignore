@@ -15,3 +15,7 @@ settings.private.json
 
 
 remove.json
+
+
+node_modules
+.ntvs_analysis.dat
