@@ -2,10 +2,40 @@
 
 Provides and approach for updating Azure Load Balancer – adding and removing Virtual Machines from the Back End Pool
 
-* Current example written in C#
+## Python Version
+* Visual Studio 2015 Python Tools used - not required
+
+The following Requirements for running Python version - installable via pip
+
+```
+azure==1.0.2
+azure-common==1.0.0
+azure-mgmt==0.20.1
+azure-mgmt-common==0.20.0
+azure-mgmt-compute==0.20.0
+azure-mgmt-network==0.20.1
+azure-mgmt-nspkg==1.0.0
+azure-mgmt-resource==0.20.1
+azure-mgmt-storage==0.20.0
+azure-nspkg==1.0.0
+azure-servicebus==0.20.1
+azure-servicemanagement-legacy==0.20.1
+azure-storage==0.20.2
+futures==3.0.3
+python-dateutil==2.4.2
+requests==2.8.1
+```
+### Azure SDK for Python
+More information is here: [https://github.com/Azure/azure-sdk-for-python](https://github.com/Azure/azure-sdk-for-python)
+
+And here [https://pypi.python.org/pypi/azure](https://pypi.python.org/pypi/azure) as well.
+
+## CSharep (C\#) Version
 * Visual Studio 2015
 * Following direct NuGet package dependencies
 * ADAL & Azure Management Libraries
+
+The C# version also has some hardcoded settings that are factored out to a json file in the Python version.  See issue #5
 
 
 ```json
@@ -43,7 +73,7 @@ Some Persistence Engines could benefit
 Utilized for SQL Server Always ON today
 Not well documented for Non-SQL Server Configurations
 
-## Setup and Configuration
+## Setup and Configuration - Python Version
 ### Create your Azure Active Directory Service Principal
 There is a script `createAdApp.sh` that can help here that uses certificates, but best to review [Creating a Service Principal via Portal](https://azure.microsoft.com/en-us/documentation/articles/resource-group-create-service-principal-portal/)
 
