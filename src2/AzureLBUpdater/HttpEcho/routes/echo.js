@@ -11,6 +11,12 @@ router.post('/', function (req, res) {
     res.send(req.body);
 });
 
+
+router.put('/', function (req, res) {
+    console.log(req.body)
+    res.send(req.body);
+});
+
 module.exports = router;
 
 
