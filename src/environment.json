@@ -1,0 +1,11 @@
+{
+  "vmnames": [
+    { "name": "BackendVM0" },
+    { "name": "BackendVM1" }
+  ],
+
+  "resourceGroup": "mshackilbfloat1",
+  "loadBalancerName": "webload",
+  "subnetName": "backendSubnet",
+  "virtualNetworkName" : "ilbfloat"
+}

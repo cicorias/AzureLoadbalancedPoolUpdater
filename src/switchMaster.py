@@ -1,5 +1,7 @@
 ﻿#!/usr/bin/python
 
+# Setup..
+
 # pip azure
 from azure.mgmt.common import ( 
     SubscriptionCloudCredentials
@@ -45,6 +47,13 @@ def load_config():
         client_secret = config['client_secret']
         endpoint = config['endpoint']
 
+    with open('environment.json') as machine_file:
+        global environment, number_of_machines
+        environment = json.load(machine_file)
+        number_of_machines = len(environment['vmnames'])
+        logging.info('there are %s machines', number_of_machines)
+
+
 def get_token_from_client_credentials(endpoint, client_id, client_secret):
     payload = {
         'grant_type': 'client_credentials',
@@ -89,13 +98,13 @@ def get_virtual_machine_network_interface(resource_group_name, virtual_machine_n
 def get_master_vmname_from_arg(arg):
     if arg == '0':
         rv = { 
-            'newMaster' : 'BackendVM0',
-            'oldMaster' : 'BackendVM1' 
+            'newMaster' : environment['vmnames'][0],
+            'oldMaster' : environment['vmnames'][1] 
         }
     elif arg == '1':
         rv = { 
-            'newMaster' : 'BackendVM1',
-            'oldMaster' : 'BackendVM0' 
+            'newMaster' : environment['vmnames'][1],
+            'oldMaster' : environment['vmnames'][0] 
         }
     else:
         raise ValueError('Only accept 0 or 1 as New Master value')
@@ -165,21 +174,23 @@ def send_loadbalancer_request(payload, resource_id, max_retries=20):
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "n:1")
+        opts, args = getopt.getopt(sys.argv[1:], 'n:r:')
     except getopt.GetoptError:
         logging.exception('invalid options - switchMaster -newmaster 0|1')
 
+    # Startup
+    load_config()
+
     for opt,arg in opts:
-        if opt == '-n':
+        if opt in ('-n'):
             new_master_arg = arg
             logging.info('newMaster will be %s', new_master_arg)            
             #now get the existing virtual machines
             vmnames = get_master_vmname_from_arg(new_master_arg)
-        if opt == '-r':
+        elif opt in ('-r'):
             max_retries = arg
+            logging.info('max retries set to %s', max_retries)
 
-    # Startup
-    load_config()
 
     # OAuth token needed
     global auth_token
@@ -194,14 +205,17 @@ def main(argv):
     network_client = NetworkResourceProviderClient(credentials)
     resource_client = ResourceManagementClient(credentials)
 
-    resource_group = 'mshackilbfloat1'
-    load_balancer_name = 'webload'
+    #TODO modify this to mach your specific settings
+    resource_group = environment['resourceGroup']
+    load_balancer_name = environment['loadBalancerName']
     
-    subnet_name = "backendSubnet";
-    virtual_network_name = "ilbfloat";
+    subnet_name = environment['subnetName'];
+    virtual_network_name = environment['virtualNetworkName'];
 
-    old_master_vm = compute_client.virtual_machines.get(resource_group, vmnames['oldMaster'])
-    new_master_vm = compute_client.virtual_machines.get(resource_group, vmnames['newMaster'])
+    #TODO - end - only the "above" should need to change.
+
+    old_master_vm = compute_client.virtual_machines.get(resource_group, vmnames['oldMaster']['name'])
+    new_master_vm = compute_client.virtual_machines.get(resource_group, vmnames['newMaster']['name'])
 
     #get the subnet we are in
     subnet = network_client.subnets.get(resource_group, virtual_network_name, subnet_name)
@@ -210,18 +224,18 @@ def main(argv):
     load_balancer = network_client.load_balancers.get(resource_group, load_balancer_name)
 
     #get the 2 nic cards for the VM's in this subnet/loadbalncer config
-    new_master_nic = get_virtual_machine_network_interface(resource_group, vmnames['newMaster'])
-    old_master_nic = get_virtual_machine_network_interface(resource_group, vmnames['oldMaster'])
+    new_master_nic = get_virtual_machine_network_interface(resource_group, vmnames['newMaster']['name'])
+    old_master_nic = get_virtual_machine_network_interface(resource_group, vmnames['oldMaster']['name'])
 
 
     old_master_request = build_request(old_master_vm, old_master_nic)
     new_master_request = build_request(new_master_vm, new_master_nic, load_balancer)
 
 
-    send_loadbalancer_request(old_master_request, old_master_nic.id)
+    send_loadbalancer_request(old_master_request, old_master_nic.id, max_retries)
 
     #make sure to add in the backendpool
-    send_loadbalancer_request(new_master_request, new_master_nic.id)
+    send_loadbalancer_request(new_master_request, new_master_nic.id, max_retries)
 
 
 if __name__ == "__main__":

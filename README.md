@@ -45,6 +45,9 @@ Not well documented for Non-SQL Server Configurations
 
 
 ## Video Walkthrough
+### Python Version
+
+### CSharp (C\#) Version
 View on Office Mix [Azure Load Balancer Back End Updates via REST](https://mix.office.com/MyMixes/Details/1zm4c3lcw51o)
 
 Or on YouTube [Azure Load Balancer Back End Updates via REST](https://youtu.be/ChOhpEpPHL8)
